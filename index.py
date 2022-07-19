@@ -1,267 +1,89 @@
-gamefield = "_|_|_\n_|_|_\n | | "
 player = "X"
 enemy = "O"
 
+#repeat turn if player makes a mistake
 
-print(gamefield)
-def playerTurn():
-    i = input("Where would you like to place your X? ")
-    
-    if i.isnumeric():
-        i = int(i)
-        if i > 0 and i < 10:
-            global gamefield
-            if (i == 1):
-                if (gamefield[0] == "_"):
-                        tempField = list(gamefield)
-                        tempField[0] = "X"
-                        tempField = "".join(tempField)
-
-                        gamefield = tempField
-                        print(gamefield)
-            elif (i == 2):
-                if (gamefield[2] == "_"):
-                    tempField = list(gamefield)
-                    tempField[2] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 3):
-                if (gamefield[4] == "_"):
-                    tempField = list(gamefield)
-                    tempField[4] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 4):
-                if (gamefield[6] == "_"):
-                    tempField = list(gamefield)
-                    tempField[6] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 5):
-                if (gamefield[8] == "_"):
-                    tempField = list(gamefield)
-                    tempField[8] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif(i == 6):
-                if (gamefield[10] == "_"):
-                    tempField = list(gamefield)
-                    tempField[10] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 7):
-                if (gamefield[12] == " "):
-                    tempField = list(gamefield)
-                    tempField[12] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 8):
-                if (gamefield[14] == " "):
-                    tempField = list(gamefield)
-                    tempField[14] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 9):
-                if (gamefield[16] == " "):
-                    tempField = list(gamefield)
-                    tempField[16] = "X"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
+def turn(who):
+    turnActive = True
+    while turnActive == True:
+        piece = ""
+        if (who == "player"):
+            piece = player
         else:
-            print("You entered a number which is too high/too low! (1 - 9)")
-    else:
-        print("You did not enter a number!")
-
-def enemyTurn():
-    i = input("Where would you like to place your O? ")
-    
-    if i.isnumeric():
-        i = int(i)
-        if i > 0 and i < 10:
-            global gamefield
-            if (i == 1):
-                if (gamefield[0] == "_"):
-                        tempField = list(gamefield)
-                        tempField[0] = "O"
-                        tempField = "".join(tempField)
-
-                        gamefield = tempField
-                        print(gamefield)
-            elif (i == 2):
-                if (gamefield[2] == "_"):
-                    tempField = list(gamefield)
-                    tempField[2] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 3):
-                if (gamefield[4] == "_"):
-                    tempField = list(gamefield)
-                    tempField[4] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 4):
-                if (gamefield[6] == "_"):
-                    tempField = list(gamefield)
-                    tempField[6] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 5):
-                if (gamefield[8] == "_"):
-                    tempField = list(gamefield)
-                    tempField[8] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif(i == 6):
-                if (gamefield[10] == "_"):
-                    tempField = list(gamefield)
-                    tempField[10] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 7):
-                if (gamefield[12] == " "):
-                    tempField = list(gamefield)
-                    tempField[12] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 8):
-                if (gamefield[14] == " "):
-                    tempField = list(gamefield)
-                    tempField[14] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
-            elif (i == 9):
-                if (gamefield[16] == " "):
-                    tempField = list(gamefield)
-                    tempField[16] = "O"
-                    tempField = "".join(tempField)
-
-                    gamefield = tempField
-                    print(gamefield)
+            piece = enemy
+        i = input("Where would you like to place your " + piece + "? ")
+        if (i.isnumeric()):
+            if (gamefield[int(i) - 1] == "_" or gamefield[int(i) - 1] == " "):
+                gamefield[int(i) - 1] = piece
+                turnActive = False
+            else:
+                print("That spot is already taken!")
         else:
-            print("You entered a number which is too high/too low! (1 - 9)")
-    else:
-        print("You did not enter a number!")
-    
+            print("Enter a number 1 - 9.")
+
+def buildField(gameArray):
+    string = ""
+    index = 0
+    for i in gameArray:
+        if (index % 3 == 0):
+            index += 1
+            string = string + "\n" + i
+        else:
+            string = string + "|" + i
+            index += 1
+    string = string + "\n"
+    print(string)
+
+def checkForWin(gameArray, user):
+    for i in range(9):
+        #vertical
+        if (i == 0 or i == 1 or i == 2):
+            if (gameArray[i] == user and gameArray[i + 3] == user and gameArray[i + 6] == user):
+                print("\033[92m" + user + " won!\033[0m")
+                return True
+
+        #horizontal
+        if (i == 0 or i == 3 or i == 6):
+            if (gameArray[i] == user and gameArray[i + 1] == user and gameArray[i + 2] == user):
+                print("\033[92m" + user + " won!\033[0m")
+                return True
+
+        #diagonal
+        if (i == 0):
+            if (gameArray[i] == user and gameArray[i + 4] == user and gameArray[i + 8] == user):
+                print("\033[92m" + user + " won!\033[0m")
+                return True
+        elif (i == 2):
+            if (gameArray[i] == user and gameArray[i + 2] == user and gameArray[i + 4] == user):
+                print(user + " won!")
+                return True
+
+
 win = False
-while win == False:
-    playerTurn()
-    
-    tempField = gamefield
-    tempField = tempField.replace("\n", "")
-    tempField = tempField.replace("|", "")
-
-    if (tempField[0] == "X" and tempField[3] == "X" and tempField[6] == "X"):
-        win = True
-        break
-
-    if (tempField[1] == "X" and tempField[4] == "X" and tempField[7] == "X"):
-        win = True
-        break
-
-    if (tempField[2] == "X" and tempField[5] == "X" and tempField[8] == "X"):
-        win = True
-        break
-
-    if (tempField[0] == "X" and tempField[1] == "X" and tempField[2] == "X"):
-        win = True
-        break
-
-    if (tempField[3] == "X" and tempField[4] == "X" and tempField[5] == "X"):
-        win = True
-        break
-
-    if (tempField[6] == "X" and tempField[7] == "X" and tempField[8] == "X"):
-        win = True
-        break
-
-    if (tempField[0] == "X" and tempField[4] == "X" and tempField[8] == "X"):
-        win = True
-        break
-
-    if (tempField[6] == "X" and tempField[4] == "X" and tempField[2] == "X"):
-        win = True
-        break
-
-    count = 0
-    for i in tempField:
-        if (i == "_" or i == " "):
-            count += 1
-
-    if count == 0:
-        print("Draw!")
-        break
-
-    enemyTurn()
-
-    if (tempField[0] == "O" and tempField[3] == "O" and tempField[6] == "O"):
-        win = True
-        break
-
-    if (tempField[1] == "O" and tempField[4] == "O" and tempField[7] == "O"):
-        win = True
-        break
-
-    if (tempField[2] == "O" and tempField[5] == "O" and tempField[8] == "O"):
-        win = True
-        break
-
-    if (tempField[0] == "O" and tempField[1] == "O" and tempField[2] == "O"):
-        win = True
-        break
-
-    if (tempField[3] == "O" and tempField[4] == "O" and tempField[5] == "O"):
-        win = True
-        break
-
-    if (tempField[6] == "O" and tempField[7] == "O" and tempField[8] == "O"):
-        win = True
-        break
-
-    if (tempField[0] == "O" and tempField[4] == "O" and tempField[8] == "O"):
-        win = True
-        break
-
-    if (tempField[6] == "O" and tempField[4] == "O" and tempField[2] == "O"):
-        win = True
-        break
-
-    count = 0
-    for i in tempField:
-        if (i == "_" or i == " "):
-            count += 1
-
-    if count == 0:
-        print("Draw!")
-        break
-
-print("Game end!")
+while True:
+    win = False
+    gamefield = [
+                "_", "_", "_",
+                "_", "_", "_",
+                " ", " ", " "
+                ]
+    buildField(gamefield)
+    while win == False:
+        if (not gamefield.__contains__("_") and not gamefield.__contains__(" ")):
+            print("Draw!")
+            win = True
+            break
+        turn("player")
+        buildField(gamefield)
+        if (checkForWin(gamefield, player)):
+            win = True
+            break
+        if (not gamefield.__contains__("_") and not gamefield.__contains__(" ")):
+            print("Draw!")
+            win = True
+            break
+        turn("enemy")
+        buildField(gamefield)
+        if (checkForWin(gamefield, enemy)):
+            win = True
+            break
