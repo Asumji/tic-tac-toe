@@ -1,8 +1,6 @@
 player = "X"
 enemy = "O"
 
-#repeat turn if player makes a mistake
-
 def turn(who):
     turnActive = True
     while turnActive == True:
