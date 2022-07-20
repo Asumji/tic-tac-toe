@@ -4,15 +4,10 @@ enemy = "O"
 def turn(who):
     turnActive = True
     while turnActive == True:
-        piece = ""
-        if (who == "player"):
-            piece = player
-        else:
-            piece = enemy
-        i = input("Where would you like to place your " + piece + "? ")
+        i = input("Where would you like to place your " + who + "? ")
         if (i.isnumeric()):
             if (gamefield[int(i) - 1] == "_" or gamefield[int(i) - 1] == " "):
-                gamefield[int(i) - 1] = piece
+                gamefield[int(i) - 1] = who
                 turnActive = False
             else:
                 print("That spot is already taken!")
@@ -56,8 +51,6 @@ def checkForWin(gameArray, user):
                 print(user + " won!")
                 return True
 
-
-win = False
 while True:
     win = False
     gamefield = [
@@ -71,7 +64,7 @@ while True:
             print("Draw!")
             win = True
             break
-        turn("player")
+        turn(player)
         buildField(gamefield)
         if (checkForWin(gamefield, player)):
             win = True
@@ -80,7 +73,7 @@ while True:
             print("Draw!")
             win = True
             break
-        turn("enemy")
+        turn(enemy)
         buildField(gamefield)
         if (checkForWin(gamefield, enemy)):
             win = True
