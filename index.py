@@ -48,7 +48,7 @@ def checkForWin(gameArray, user):
                 return True
         elif (i == 2):
             if (gameArray[i] == user and gameArray[i + 2] == user and gameArray[i + 4] == user):
-                print(user + " won!")
+                print("\033[92m" + user + " won!\033[0m")
                 return True
 
 while True:
